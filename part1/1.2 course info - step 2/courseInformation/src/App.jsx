@@ -6,12 +6,18 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  return (
+    <p>{props.partData}</p>
+  )
+}
+
 const Content = (props) => {
   return (
     <div>
-      <p>Fundamentals of React {props.exercise1}</p>
-      <p>Using props to pass data {props.exercise2}</p>
-      <p>State of a component {props.exercises3}</p>
+      <Part partData = {"Fundamentals of React" + props.exercise1} />
+      <Part partData = {"Using props to pass data" + props.exercise2} />
+      <Part partData = {"State of a component" + props.exercises3} />
     </div>
   )
 }
