@@ -14,14 +14,19 @@ const Part = ({ part }) => {
 
 const Content = ({ parts }) => {
     console.log(parts)
+    parts.map(p=>console.log(p.exercises))
+    const total = parts.reduce((a,b) => a + b.exercises,0)
+    console.log("Total:", total)
+
     return (
-        parts.map((p)=><Part part={p}/>)
+        <>
+            {parts.map((p)=><Part key={p.id} part={p}/>)}
+            <Part part={{name:"Total of " + parts.reduce((a,b) => a + b.exercises,0) + " exercises"}}/>
+        </>
     )
 }    
 
 const Course = (props) =>{
-    console.log(props)
-
     return (
         <>
             <Header course={props.course.name} />
