@@ -11,7 +11,8 @@ const Part = ({ part }) =>
 
 const Content = ({ parts }) => 
   <>
-    {parts.map((p)=><Part key={p.id} part={p}/>)}    
+    {parts.map((p)=><Part part={p}/>)}    
+    
   </>
 
 const Course = (props) =>{
