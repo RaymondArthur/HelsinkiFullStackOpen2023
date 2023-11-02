@@ -1,40 +1,8 @@
 import { useState } from 'react'
-
-const SubHeading = ({text}) => {
-  return (
-    <div>
-      <h2>{text}</h2>
-    </div>
-  )
-}
-
-const InputGroup = (props) => {
-
-  return (
-    <div>
-        {props.formLabel}: <input defaultValue={props.defaultValue} onChange={props.handleChange} />
-    </div>
-  )
-}
-
-const Person = ({name,number}) => {
-  return (
-    <div>
-      <li key={name}>{name} {number}</li>
-    </div>
-  )
-}
-
-const PhoneBookList = ({persons}) => {
-
-  return (
-    <div>
-      <ul>
-        {persons.map(p=><Person key={p.name} name={p.name} number={p.number} />)}
-      </ul>
-    </div>
-  )
-}
+import SubHeading from './components/SubHeading'
+import PhoneBookList from './components/PhoneBookList'
+import PersonForm from './components/PersonForm'
+import InputGroup from './components/InputGroup'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -42,6 +10,7 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
   const [newPhonenumber, setNewPhonenumber] = useState('')
+  const [filterText, setFilterText] = useState('')
 
   //objectsAreEqual() is used to check if two objects are 'equal'
   const objectsAreEqual = (obj1,obj2) => {
@@ -101,6 +70,11 @@ const App = () => {
     setNewPhonenumber(event.target.value)
   }
 
+  //saving the applied filter text
+  const handleFilterTextChange = (event) => {
+    setFilterText(event.target.value)
+  }
+
   //adding the newName state to the persons state 
   const addNewPerson = (event) => {
 
@@ -133,18 +107,15 @@ const App = () => {
     
     <div>
       <SubHeading text="Phonebook" />
+      <InputGroup formLabel="filter shown with" value={filterText} handleChange ={handleFilterTextChange} />
 
-      
-      <form onSubmit={addNewPerson}>
-        <InputGroup formLabel="name" value={newName} handleChange={handleNameChange}  />
-        <InputGroup formLabel="number" value={newPhonenumber} handleChange={handleNumberChange}  />
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+
+      <SubHeading text="add a new" />
+      <PersonForm  addNewPerson={addNewPerson} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} 
+        newName={newName} newPhonenumber={newPhonenumber}/>
 
       <SubHeading text="Numbers" />
-      <PhoneBookList persons={persons} />
+      <PhoneBookList persons={persons} filterText = {filterText}/>
     </div>
   )
 }
